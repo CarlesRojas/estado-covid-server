@@ -218,8 +218,9 @@ router.post("/getHistoricProvinceCovidInfo", async (request, response) => {
         const { provinceId } = request.body;
 
         const historicData = await HistoricProvince.findOne({ provinceId });
+        const last30 = historicData.historic.slice(-30);
 
-        response.json(historicData.historic);
+        response.json(last30);
     } catch (error) {
         return response.status(400).json({ error });
     }
@@ -234,8 +235,9 @@ router.post("/getHistoricAutonomicCommunityCovidInfo", async (request, response)
         const { autonomicCommunityId } = request.body;
 
         const historicData = await HistoricAutonomicCommunitie.findOne({ autonomicCommunityId });
+        const last30 = historicData.historic.slice(-30);
 
-        response.json(historicData.historic);
+        response.json(last30);
     } catch (error) {
         return response.status(400).json({ error });
     }
