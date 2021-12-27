@@ -9,9 +9,13 @@ const http = require("http");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const schedule = require("node-schedule");
 
 // Routes
 const restApiRoutes = require("./routes/restApi");
+
+// Every day function
+const everyDay = require("./everyDay");
 
 // #################################################
 //   ENVIROMENT
@@ -50,6 +54,12 @@ app.use(bodyParser.json());
 
 // Routes middlewares
 app.use("/api_v1/", restApiRoutes);
+
+// #################################################
+//   SAVE DATA EVERY DAY
+// #################################################
+
+schedule.scheduleJob("0 0 * * *", everyDay);
 
 // #################################################
 //   START SERVER

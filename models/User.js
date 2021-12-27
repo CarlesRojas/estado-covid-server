@@ -6,10 +6,26 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: false,
     },
+    covidStartDate: {
+        type: Date,
+        default: Date.now,
+    },
     numberOfVaccines: {
         type: Number,
         required: true,
         default: 0,
+    },
+    provinceId: {
+        type: String,
+        required: true,
+        min: 1,
+        max: 1024,
+    },
+    autonomicCommunityId: {
+        type: String,
+        required: true,
+        min: 1,
+        max: 1024,
     },
 });
 
