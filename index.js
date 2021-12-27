@@ -12,7 +12,7 @@ const bodyParser = require("body-parser");
 const schedule = require("node-schedule");
 
 // Routes
-const restApiRoutes = require("./routes/restApi");
+const apiRoutes = require("./routes/API");
 
 // Every day function
 const everyDay = require("./everyDay");
@@ -53,7 +53,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes middlewares
-app.use("/api_v1/", restApiRoutes);
+app.use("/api_v1/", apiRoutes);
 
 // #################################################
 //   SAVE DATA EVERY DAY
