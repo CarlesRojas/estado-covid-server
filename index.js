@@ -6,6 +6,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const http = require("http");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -28,6 +29,13 @@ const app = express();
 
 // HTTP access
 const server = http.createServer(app);
+
+// #################################################
+//   DATABASE
+// #################################################
+
+// Connect to Mongoose DB
+mongoose.connect(process.env.DB_URL, () => console.log("Connected to DB."));
 
 // #################################################
 //   ROUTES

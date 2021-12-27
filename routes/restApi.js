@@ -8,9 +8,10 @@ dotenv.config();
 // Google API key
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
-// Get the google API key
-router.get("/getGoogleAPIKey", async (_, response) => {
-    return response.json({ googleAPIKey: GOOGLE_API_KEY });
-});
+// Get the User scheme
+const User = require("../models/User");
 
-module.exports = router;
+// Get the Validation schemas
+const { createUserValidation } = require("../validation");
+
+router.get("/getGo
