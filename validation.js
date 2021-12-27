@@ -38,17 +38,17 @@ const updateLocationValidation = (data) => {
     return schema.validate(data);
 };
 
-const autonomicCommuntyCovidInfo = (data) => {
+const provinceValidation = (data) => {
     const schema = Joi.object({
-        autonomicCommunityId: Joi.string().min(1).max(1024).required(),
+        provinceId: Joi.string().min(1).max(1024).required(),
     });
 
     return schema.validate(data);
 };
 
-const provinceCovidInfo = (data) => {
+const autonomicCommuntyValidation = (data) => {
     const schema = Joi.object({
-        provinceId: Joi.string().min(1).max(1024).required(),
+        autonomicCommunityId: Joi.string().min(1).max(1024).required(),
     });
 
     return schema.validate(data);
@@ -58,5 +58,5 @@ module.exports.createUserValidation = createUserValidation;
 module.exports.userIDValidation = userIDValidation;
 module.exports.updateVaccinesValidation = updateVaccinesValidation;
 module.exports.updateLocationValidation = updateLocationValidation;
-module.exports.autonomicCommuntyCovidInfo = autonomicCommuntyCovidInfo;
-module.exports.provinceCovidInfo = provinceCovidInfo;
+module.exports.provinceValidation = provinceValidation;
+module.exports.autonomicCommuntyValidation = autonomicCommuntyValidation;

@@ -8,8 +8,10 @@ dotenv.config();
 // Google API key
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 
-// Get the User scheme
+// Get the User & Historic schemas
 const User = require("../models/User");
+const HistoricProvince = require("../models/HistoricProvince");
+const HistoricAutonomicCommunitie = require("../models/HistoricAutonomicCommunity");
 
 // Get the Validation schemas
 const {
@@ -17,8 +19,8 @@ const {
     userIDValidation,
     updateVaccinesValidation,
     updateLocationValidation,
-    autonomicCommuntyCovidInfo,
-    provinceCovidInfo,
+    autonomicCommuntyValidation,
+    provinceValidation,
 } = require("../validation");
 
 router.get("/getGoogleAPIKey", async (_, response) => {
@@ -155,7 +157,7 @@ router.post("/updateLocation", async (request, response) => {
 
 router.post("/getprovinceCovidInfo", async (request, response) => {
     // Validate data
-    const { error } = provinceCovidInfo(request.body);
+    const { error } = provinceValidation(request.body);
     if (error) return response.status(400).json({ error: error.details[0].message });
 
     try {
@@ -182,7 +184,7 @@ router.post("/getprovinceCovidInfo", async (request, response) => {
 
 router.post("/getAutonomicCommunityCovidInfo", async (request, response) => {
     // Validate data
-    const { error } = autonomicCommuntyCovidInfo(request.body);
+    const { error } = autonomicCommuntyValidation(request.body);
     if (error) return response.status(400).json({ error: error.details[0].message });
 
     try {
@@ -202,6 +204,38 @@ router.post("/getAutonomicCommunityCovidInfo", async (request, response) => {
             usersWithTwoVaccines: usersWithTwoVaccines.length,
             usersWithThreeVaccines: usersWithThreeVaccines.length,
         });
+    } catch (error) {
+        return response.status(400).json({ error });
+    }
+});
+
+router.post("/getHistoricProvinceCovidInfo", async (request, response) => {
+    // Validate data
+    const { error } = provinceValidation(request.body);
+    if (error) return response.status(400).json({ error: error.details[0].message });
+
+    try {
+        const { provinceId } = request.body;
+
+        const historicData = await HistoricProvince.findOne({ provinceId });
+
+        response.json(historicData.historic);
+    } catch (error) {
+        return response.status(400).json({ error });
+    }
+});
+
+router.post("/getHistoricAutonomicCommunityCovidInfo", async (request, response) => {
+    // Validate data
+    const { error } = autonomicCommuntyValidation(request.body);
+    if (error) return response.status(400).json({ error: error.details[0].message });
+
+    try {
+        const { autonomicCommunityId } = request.body;
+
+        const historicData = await HistoricAutonomicCommunitie.findOne({ autonomicCommunityId });
+
+        response.json(historicData.historic);
     } catch (error) {
         return response.status(400).json({ error });
     }
