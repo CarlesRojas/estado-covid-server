@@ -4,6 +4,7 @@ Joi.objectId = require("joi-objectid")(Joi);
 const createUserValidation = (data) => {
     const schema = Joi.object({
         numberOfVaccines: Joi.number().min(0).max(3).required(),
+        ageRange: Joi.string().min(1).max(1024).required(),
     });
 
     return schema.validate(data);

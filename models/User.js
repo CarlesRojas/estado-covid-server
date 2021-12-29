@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
         min: 1,
         max: 1024,
     },
+    ageRange: {
+        type: String,
+        min: 1,
+        max: 1024,
+    },
 });
 
 module.exports = mongoose.model("User", userSchema);
