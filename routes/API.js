@@ -33,14 +33,12 @@ router.post("/createUser", async (request, response) => {
     if (error) return response.status(400).json({ error: error.details[0].message });
 
     try {
-        const { numberOfVaccines, provinceId, autonomicCommunityId } = request.body;
+        const { numberOfVaccines } = request.body;
 
         // Create User
         const user = new User({
             hasCovid: false,
             numberOfVaccines,
-            provinceId,
-            autonomicCommunityId,
         });
 
         // Save user to DB
